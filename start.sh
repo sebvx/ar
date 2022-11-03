@@ -31,7 +31,7 @@ sed 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' -i /etc/pacman.conf
 pacman -Syy --noconfirm
 reflector --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools reflector
-#Генерация fstab
+#Генерация fstabы
 genfstab -U -p /mnt >> /mnt/etc/fstab
 #копируем вторую часть скрипта в новую систему
 cp /root/ar/in.sh /mnt/
