@@ -23,9 +23,9 @@ passwd $username
 sed 's/BINARIES=()/BINARIES=(btrfs)/g' -i /etc/mkinitcpio.conf
 sed 's/#COMPRESSION="zstd"/COMPRESSION="zstd"/g' -i /etc/mkinitcpio.conf
 #Добавляем репозитории
-echo 'Server = https://archlinux.astra.in.ua/$repo/os/$arch' >> etc/pacman.d/mirrorlist
-echo 'Server = https://fastmirror.pp.ua/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
-echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+#echo 'Server = https://archlinux.astra.in.ua/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+#echo 'Server = https://fastmirror.pp.ua/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+#echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 pacman -Syy --noconfirm
 #chaotic-aur
 pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
@@ -63,9 +63,9 @@ pacman -Sy --noconfirm btop vim bat neofetch
 #Для игр
 #pacman -Sy --noconfirm mesa lib32-mesa mesa-utils lib32-mesa-utils opencl-mesa lib32-opencl-mesa vulcan-radeon lib32-vulcan-radeon gamemode steam protonup-qt gamescope
 #Повышение производительности
-pacman -Sy --noconfirm ananicy-cpp ananicy-rules-git 
+#pacman -Sy --noconfirm ananicy-cpp ananicy-rules-git 
 # Шрифты орфография
-pacman -Sy --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-nerd-fonts-symbols hunspell
+#pacman -Sy --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-nerd-fonts-symbols hunspell
 #Настройк Grub загрузчика системы
 grub-install --target=i386-pc --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
