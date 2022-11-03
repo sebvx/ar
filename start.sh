@@ -29,7 +29,7 @@ sed 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' -i /etc/pacman.conf
 #echo 'Server = https://fastmirror.pp.ua/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 #echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 pacman -Syy --noconfirm
-pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools 
+pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools reflector
 #Генерация fstab
 genfstab -U -p /mnt >> /mnt/etc/fstab
 #копируем вторую часть скрипта в новую систему
