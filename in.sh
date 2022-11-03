@@ -28,26 +28,11 @@ sed 's/#COMPRESSION="zstd"/COMPRESSION="zstd"/g' -i /etc/mkinitcpio.conf
 #echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 pacman -Syy --noconfirm
 reflector --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-#chaotic-aur
-pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
-pacman-key --lsign-key FBA220DFC880C036
-pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
-echo "[chaotic-aur]" >> /etc/pacman.conf
-echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
-#liquorix
-pacman-key --recv-key 9AE4078033F8024D --keyserver hkps://keyserver.ubuntu.com
-pacman-key --lsign-key 9AE4078033F8024D
-echo "[liquorix]" >> /etc/pacman.conf
-echo "Server = https://liquorix.net/archlinux/liquorix/x86_64/" >> /etc/pacman.conf
-#multilib
-echo "[multilib]" >> /etc/pacman.conf
-echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 #Устанавливаем софт
 sed 's/Architecture = auto/Architecture = auto \n ILoveCandy/g' -i /etc/pacman.conf
 sed 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' -i /etc/pacman.conf
 sed 's/#Color/Color/g' -i /etc/pacman.conf
-#Ядро и основные утилиты
-pacman -Sy --noconfirm mkinitcpio-firmware linux-lqx linux-lqx-headers linux-lqx-docs nano wget curl git reflector
+
 #Загрузка файловая система снапшоты
 pacman -Sy --noconfirm grub grub-btrfs os-prober efibootmgr dosfstools mtools timeshift grub-customizer ntfs-3g
 #Сеть
@@ -59,7 +44,7 @@ pacman -Sy --noconfirm xorg plazma plasma-wayland-session  kde-applications-meta
 #Мультимедиа 
 pacman -Sy --noconfirm deadbeef haruna ffmpegthumbs mediainfo-gui 
 #Нужный софт
-pacman -Sy --noconfirm btop vim bat neofetch
+pacman -Sy --noconfirm btop vim bat neofetch wget curl git 
 #stacer qbittorrent-nox google-chrome xdg-user-dirs p7zip unrar neofetch kdiskmark cabextract
 #Для игр
 #pacman -Sy --noconfirm mesa lib32-mesa mesa-utils lib32-mesa-utils opencl-mesa lib32-opencl-mesa vulcan-radeon lib32-vulcan-radeon gamemode steam protonup-qt gamescope
@@ -74,10 +59,10 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #sed 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet rootfstype=btrfs mitigations=off nowatchdog"/g' -i /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 #Добавление сервисов в автоpагрузку
-systemctl enable NetworkManager ananicy-cpp sddm openssh
+systemctl enable NetworkManager sddm sshd
 #gdm
 systemctl mask NetworkManager-wait-online.service
 
-echo "Enter reboot -now"
+echo "Enter reboot now"
 rm /in.sh
 exit
