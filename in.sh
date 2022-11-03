@@ -27,6 +27,7 @@ sed 's/#COMPRESSION="zstd"/COMPRESSION="zstd"/g' -i /etc/mkinitcpio.conf
 #echo 'Server = https://fastmirror.pp.ua/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 #echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 pacman -Syy --noconfirm
+reflector --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 #chaotic-aur
 pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
 pacman-key --lsign-key FBA220DFC880C036
@@ -73,7 +74,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #sed 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet rootfstype=btrfs mitigations=off nowatchdog"/g' -i /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 #Добавление сервисов в автоpагрузку
-systemctl enable NetworkManager   ananicy-cpp sddm openssh
+systemctl enable NetworkManager ananicy-cpp sddm openssh
 #gdm
 systemctl mask NetworkManager-wait-online.service
 
