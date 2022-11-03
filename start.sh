@@ -25,9 +25,9 @@ mount -o noatime,compress=zstd:2,ssd,space_cache=v2,discard=async,subvol=@tmp /d
 mount dev/sda1 /mnt/boot/EFI
 #Установка минимального набора
 sed 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' -i /etc/pacman.conf
-echo 'Server = https://archlinux.astra.in.ua/$repo/os/$arch' >> etc/pacman.d/mirrorlist
-echo 'Server = https://fastmirror.pp.ua/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
-echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+#echo 'Server = https://archlinux.astra.in.ua/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+#echo 'Server = https://fastmirror.pp.ua/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+#echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 pacman -Syy --noconfirm
 pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools 
 #Генерация fstab
