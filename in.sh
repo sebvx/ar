@@ -23,6 +23,9 @@ passwd $username
 sed 's/BINARIES=()/BINARIES=(btrfs)/g' -i /etc/mkinitcpio.conf
 sed 's/#COMPRESSION="zstd"/COMPRESSION="zstd"/g' -i /etc/mkinitcpio.conf
 #Добавляем репозитории
+echo 'Server = https://archlinux.astra.in.ua/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+echo 'Server = https://fastmirror.pp.ua/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
+echo 'Server = http://mirrors.nix.org.ua/linux/archlinux/$repo/os/$arch' >> etc/pacman.d/mirrorlist
 pacman -Syy --noconfirm
 #chaotic-aur
 pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
@@ -46,16 +49,16 @@ sed 's/#Color/Color/g' -i /etc/pacman.conf
 pacman -Sy --noconfirm mkinitcpio-firmware linux-lqx linux-lqx-headers linux-lqx-docs nano wget curl git reflector
 #Загрузка файловая система снапшоты
 pacman -Sy --noconfirm grub grub-btrfs os-prober efibootmgr dosfstools mtools timeshift grub-customizer ntfs-3g
-#Сеть и блютуз
-pacman -Sy --noconfirm networkmanager wpa_supplicant dialog
+#Сеть
+pacman -Sy --noconfirm networkmanager wpa_supplicant dialog openssh
 #Графическое окружение
-#pacman -Sy --noconfirm xorg gnome gnome-shell-extensions gnome-tweaks network-manager-applet
+pacman -Sy --noconfirm xorg plazma plasma-wayland-session  kde-applications-meta
 #Програмировани 
 #pacman -Sy --noconfirm go vscodium pycharm-community-edition intellij-idea-community-edition
 #Мультимедиа 
-#pacman -Sy --noconfirm deadbeef haruna gimp ffmpegthumbs mediainfo-gui handbrake 
+pacman -Sy --noconfirm deadbeef haruna ffmpegthumbs mediainfo-gui 
 #Нужный софт
-pacman -Sy --noconfirm btop vim 
+pacman -Sy --noconfirm btop vim bat neofetch
 #stacer qbittorrent-nox google-chrome xdg-user-dirs p7zip unrar neofetch kdiskmark cabextract
 #Для игр
 #pacman -Sy --noconfirm mesa lib32-mesa mesa-utils lib32-mesa-utils opencl-mesa lib32-opencl-mesa vulcan-radeon lib32-vulcan-radeon gamemode steam protonup-qt gamescope
@@ -67,10 +70,10 @@ pacman -Sy --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-ext
 grub-install --target=i386-pc --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 #Отключение заплаток intel
-sed 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet rootfstype=btrfs mitigations=off nowatchdog"/g' -i /etc/default/grub
+#sed 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet rootfstype=btrfs mitigations=off nowatchdog"/g' -i /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 #Добавление сервисов в автоpагрузку
-systemctl enable NetworkManager   ananicy-cpp
+systemctl enable NetworkManager   ananicy-cpp sddm openssh
 #gdm
 systemctl mask NetworkManager-wait-online.service
 
