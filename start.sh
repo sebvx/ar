@@ -3,7 +3,7 @@
 # Создание разделов диска
 lsblk
 read -p "Disk =  " AddDisk
-read -p "очистить диск ?(y,n) =  " Kill
+read -p "kill disk? (y,n) =  " Kill
 if [[ $Kill == "y" ]] 
 then
   echo -e "wipefs --all /dev/$AddDisk"
@@ -44,7 +44,7 @@ pacman -Syy --noconfirm
 reflector --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 #Установка
-pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools sudo reflector wget curl git kitty vim  networkmanager openssh xorg deepin deepin-extra lightdm
+pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools sudo reflector wget curl git kitty vim  networkmanager openssh xorg xterm cinnamon gdm
 
 #Генерация fstab
 genfstab -U -p /mnt >> /mnt/etc/fstab
