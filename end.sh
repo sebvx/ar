@@ -37,7 +37,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 sed 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet rootfstype=btrfs mitigations=off nowatchdog"/g' -i /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 #Добавление сервисов в автоpагрузку
-systemctl enable NetworkManager sshd lightdm 
+systemctl enable NetworkManager sshd gdm 
 systemctl mask NetworkManager-wait-online.service
 echo "Enter reboot now"
 rm /end.sh
