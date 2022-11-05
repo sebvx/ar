@@ -21,7 +21,6 @@ read -p "Add User : " username
 useradd -m -g users -G wheel -s /bin/bash $username
 echo 'User pass'
 passwd $username
-
 #настройка mkinit
 sed 's/BINARIES=()/BINARIES=(btrfs)/g' -i /etc/mkinitcpio.conf
 sed 's/#COMPRESSION="zstd"/COMPRESSION="zstd"/g' -i /etc/mkinitcpio.conf
@@ -36,6 +35,8 @@ grub-mkconfig -o /boot/grub/grub.cfg
 #Отключение заплаток intel
 sed 's/GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet"/GRUB_CMDLINE_LINUX_DEFAULT="quiet rootfstype=btrfs mitigations=off nowatchdog"/g' -i /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
+# проги доп
+# pacman -S kitty vim stacer neofetch btop ark p7zip unrar qbittorent guvcview 
 #Добавление сервисов в автоpагрузку
 systemctl enable NetworkManager sshd gdm 
 systemctl mask NetworkManager-wait-online.service
