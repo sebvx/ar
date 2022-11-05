@@ -20,14 +20,14 @@ mount /dev/sda2 /mnt
 btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
 btrfs su cr /mnt/@tmp
-#btrfs su cr /mnt/@snapshots
-#Отмантируем раздел
+btrfs su cr /mnt/@snapshots
+#Отмонтируем раздел
 umount /dev/sda2
 #Монтируем тома в разделы со сжатием и свойствами
 mount -o noatime,compress=zstd:2,ssd,space_cache=v2,discard=async,subvol=@ /dev/sda2  /mnt/
 mkdir -p /mnt/{boot/EFI,home,tmp,.snapshots}
 mount -o noatime,compress=zstd:2,ssd,space_cache=v2,discard=async,subvol=@home /dev/sda2  /mnt/home
-#mount -o noatime,compress=zstd:2,ssd,space_cache=v2,discard=async,subvol=@snapshots /dev/sda2  /mnt/.snapshots
+mount -o noatime,compress=zstd:2,ssd,space_cache=v2,discard=async,subvol=@snapshots /dev/sda2  /mnt/.snapshots
 mount -o noatime,compress=zstd:2,ssd,space_cache=v2,discard=async,subvol=@tmp /dev/sda2  /mnt/tmp
 mount dev/sda1 /mnt/boot/EFI
 
@@ -37,14 +37,13 @@ timedatectl set-ntp true
 
 
 #pacman
-sed 's/Architecture = auto/Architecture = auto \n ILoveCandy/g' -i /etc/pacman.conf
 sed 's/#ParallelDownloads = 5/ParallelDownloads = 10/g' -i /etc/pacman.conf
 sed 's/#Color/Color/g' -i /etc/pacman.conf
 pacman -Syy --noconfirm
 reflector --latest 15 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 #Установка
-pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools sudo reflector wget curl git kitty vim  networkmanager openssh xorg virtualbox-guest-modules-arch
+pacstrap /mnt base base-devel btrfs-progs linux-zen linux-zen-headers linux-zen-docs linux-firmware grub grub-btrfs os-prober efibootmgr dosfstools mtools sudo reflector wget curl git kitty vim  networkmanager openssh xorg 
  xterm cinnamon gdm
 
 #Генерация fstab
