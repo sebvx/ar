@@ -106,7 +106,8 @@ systemctl --user mask plasma-baloorunner.service
 systemctl enable NetworkManager sshd sddm docker 
 systemctl mask NetworkManager-wait-online.service
 
-
+#grub-install --target=i386-pc --recheck /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
 
 
 echo "Enter reboot now"
