@@ -11,3 +11,22 @@ systemctl daemon-reload
 systemctl reset-failed
 
 
+add unit     /etc/systemd/system/dms.service  
+
+
+
+[Unit]
+Description=DMS UPnP Media Server
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=seb
+ExecStart=/usr/bin/dms -friendlyName DNAP  -path /home/seb/video/dlna
+
+[Install]
+WantedBy=default.target
+
+                                                                                       
