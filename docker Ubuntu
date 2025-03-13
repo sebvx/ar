@@ -35,7 +35,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ########### PORTAINER ###########
 
 cd /opt
-sudo mkdir dockervolume/portainer
+sudo mkdir -p dockervolume/portainer
 cd ./dockervolume/portainer
 sudo vim docker-compose.yml
 
@@ -57,7 +57,7 @@ services:
 
 
 
-docker compose up -d
+docker-compose up -d
 
 
   
